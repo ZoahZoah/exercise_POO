@@ -24,7 +24,7 @@ if (cliente1_validado is True or cliente2_validado is True):
         while True:
             resposta = int(input('Digite: '
                                  '(0) Pegar o livro   '
-                                 '(1) Devolver livro'))
+                                 '(1) Devolver livro  '))
             if (resposta == 0):
                 nome_livro.livro_emprestado()
                 break
