@@ -39,52 +39,67 @@ class SistemaAventura:
                 print('Você não digitou um valor correto.')
         return nivel_protagonista
 
-    def qual_caminho_deseja_seguir(self):
-        opcoes_terreno = ['F', 'M', 'L']
-        terrenos = ['Floresta', 'Montanha', 'Lago']
+    @staticmethod
+    def escolher_action():
         opcoes_actions = ['C', 'L']
-        bool_action = False
-        if (self.nivel == 5):
-            while True:
-                terreno = input('Estamos iniciando uma nova aventura, por onde gostaria de seguir?   \n' 
-                  '(F) - Floresta, (M) - Montanha, (L) Lago ').capitalize()
-                if (terreno in opcoes_terreno):
-                    if (terreno == opcoes_terreno[0]):
-                        terreno = 'Floresta'
-                        print(f'Você está seguindo para a {terreno}')
-                    elif (terreno == opcoes_terreno[1]):
-                        terreno = 'Montanha'
-                        print(f'Você está seguindo para a {terreno}')
-                    elif (terreno == opcoes_terreno[2]):
-                        terreno = 'Lago'
-                        print(f'Você está seguindo para o {terreno}')
-                    break
-                else:
-                    print('O valor digitado não corresponde ao solicitado.')
-            if (terreno == terrenos[0]):
-                print('Personagem Secundário: TOME CUIDADO!!! \n'
-                      'Ao ouvir gritos, você olha para trás e vê monstros se aproximando! \n'
-                      '.....................................................................')
+        while (True):
+            action = input('Sistema: Você tem duas opções: \n'
+                           '(C) Correr, (L) Lutar').capitalize()
+            if (action in opcoes_actions):
+                break
+            else:
+                print('O valor digitado não corresponde ao solicitado')
+        return action
 
-                while (True):
-                    action = input('Sistema: Você tem duas opções: \n'
-                                   '(C) Correr, (L) Lutar').capitalize()
-                    if (action in opcoes_actions):
-                        break
+    @staticmethod
+    def escolher_onde_ir():
+        opcoes_terreno = ['F', 'M', 'L']
+        while True:
+            terreno = input('Estamos iniciando uma nova aventura, por onde gostaria de seguir?   \n'
+                            '(F) - Floresta, (M) - Montanha, (L) Lago ').capitalize()
+            if (terreno in opcoes_terreno):
+                if (terreno == opcoes_terreno[0]):
+                    terreno = 'Floresta'
+                    print(f'Você está seguindo para a {terreno}')
+                elif (terreno == opcoes_terreno[1]):
+                    terreno = 'Montanha'
+                    print(f'Você está seguindo para a {terreno}')
+                elif (terreno == opcoes_terreno[2]):
+                    terreno = 'Lago'
+                    print(f'Você está seguindo para o {terreno}')
+                return terreno
+                break
+            else:
+                print('O valor digitado não corresponde ao solicitado.')
+
+    @staticmethod
+    def batalha(protagonista, monstro):
+        while (True):
+            if (protagonista.classe_status['HP'] > 0 and monstro.status['HP'] > 0):
+                actions = ['A', 'M', 'D']
+                action = input('O que você gostaria de fazer: \n'
+                               '(A) Atacar, (M) Magicar, (D) Defender').capitalize()
+                if (action in actions):
+                    if (action == 'A'):
+                        monstro.status['HP'] = monstro.status['HP'] - (protagonista.classe_status['Atk'] - monstro.status['def'])
+                        print(monstro.status['HP'])
+                        if (monstro.status['HP'] > 0):
+                            protagonista.classe_status['HP'] = protagonista.classe_status['HP'] - monstro.status['Atk'] - \
+                                                               protagonista.classe_status['def'] // 2
+                            print(protagonista.classe_status['HP'])
+                    elif (action == 'M'):
+                        monstro.status['HP'] = monstro.status['HP'] - (protagonista.classe_status['Atk Mg'] - monstro.status['def'])
+                        print(monstro.status['HP'])
+                        if (monstro.status['HP'] > 0):
+                            protagonista.classe_status['HP'] = protagonista.classe_status['HP'] - (
+                                    monstro.status['Atk'] - protagonista.classe_status['def'] // 2)
+                            print(protagonista.classe_status['HP'])
+                    elif (action == 'D'):
+                        pass
                     else:
-                        print('O valor digitado não corresponde ao solicitado')
-                if (action == opcoes_actions[0]):
-                    pass
-                elif (action == opcoes_actions[1]):
-                    pass
-            elif (terreno == terrenos[1]):
-                pass
-            elif (terreno == terrenos[1]):
-                pass
-        elif (self.nivel == 3):
-            pass
-        elif (self.nivel == 1):
-            pass
-
+                        print('Comando inválido.')
+            elif (protagonista.classe_status['HP'] <= 0 or monstro.status['HP'] <= 0):
+                break
+        print('Você venceu a luta!!')
     def __str__(self):
         return f'O nível atual é: {self.nivel}'

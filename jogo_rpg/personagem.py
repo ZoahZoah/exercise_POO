@@ -87,3 +87,24 @@ class Protagonista(Personagem):
     def subir_nivel(self, nivel):
         for i in self.classe_status:
             self.classe_status[i] += (2 * nivel)
+
+class Monstro:
+    tipos_monstros = ['Animal', 'Mitologico', 'Lendario']
+    animal = {'HP': 13, 'Atk': 5, 'Atk Mg': 2, 'def': 5}
+    def __init__(self, nome, tipo):
+        self.nome = nome
+        self.tipo = tipo
+        self.status = 0
+
+    def status_monstro(self):
+        if (self.tipo == Monstro.tipos_monstros[0]):
+            self.status = Monstro.animal
+        elif (self.tipo == Monstro.tipos_monstros[1]):
+            pass
+        elif (self.tipo == Monstro.tipos_monstros[2]):
+            pass
+
+    def __str__(self):
+        f'Nome: {self.nome} \n' \
+        f'Tipo Monstro: {self.tipo} \n' \
+        f'Status: {self.status}'
