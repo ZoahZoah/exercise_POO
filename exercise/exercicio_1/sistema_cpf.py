@@ -1,5 +1,4 @@
-from pessoa import Pessoa
-from menu import Menu
+from exercise.exercicio_1.menu import Menu
 
 serasa = Menu()
 '''cpf, nome, sexo, idade = serasa.criar_pessoa()
